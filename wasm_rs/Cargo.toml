@@ -1,0 +1,14 @@
+[package]
+name = "wasm_rs"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ['cdylib']
+
+[dependencies]
+wasm-bindgen = "0.2.83"
+serde = { version = "1.0.147", features = ["derive"] }
+serde-wasm-bindgen = "0.4.5"
+
+tex_rsm_parser = { git = "ssh://git@github.com/ykyki/tex_rsm_parser.git", tag = "v1.0" }
