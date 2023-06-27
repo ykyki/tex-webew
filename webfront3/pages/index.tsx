@@ -1,4 +1,4 @@
-import { parse_paragraphs } from 'wasm_rs';
+import { parse_paragraphs } from '@lib/parser';
 import React from 'react';
 
 export default function Home() {
