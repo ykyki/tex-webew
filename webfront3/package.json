@@ -11,7 +11,8 @@
   "dependencies": {
     "next": "^12.3.4",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "wasm_rs": "./resources/gen/wasm_rs"
   },
   "devDependencies": {
     "@types/node": "20.3.2",
