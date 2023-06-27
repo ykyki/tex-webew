@@ -1,0 +1,13 @@
+{
+    "extends": ["next/core-web-vitals", "prettier"],
+    "overrides": [
+        // from: https://github.com/vercel/next.js/issues/40687
+        {
+            "files": ["next.config.js"],
+            "parser": "espree",
+            "parserOptions": {
+                "ecmaVersion": 2020
+            }
+        }
+    ]
+}
