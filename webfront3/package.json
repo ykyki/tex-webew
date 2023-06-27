@@ -6,7 +6,8 @@
         "dev": "next dev",
         "build": "next build && next export -o ./out/tex-webew",
         "start": "next start",
-        "lint": "next lint"
+        "lint": "next lint",
+        "format": "prettier -w ./"
     },
     "dependencies": {
         "next": "^12.3.4",
