@@ -1,26 +1,26 @@
 {
-  "name": "webfront3",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build && next export -o ./out/tex-webew",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "next": "^12.3.4",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "wasm_rs": "./resources/gen/wasm_rs"
-  },
-  "devDependencies": {
-    "@types/node": "20.3.2",
-    "@types/react": "18.2.14",
-    "eslint": "8.43.0",
-    "eslint-config-next": "13.4.7",
-    "eslint-config-prettier": "^8.8.0",
-    "prettier": "2.8.8",
-    "typescript": "5.1.3"
-  }
+    "name": "webfront3",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build && next export -o ./out/tex-webew",
+        "start": "next start",
+        "lint": "next lint"
+    },
+    "dependencies": {
+        "next": "^12.3.4",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "wasm_rs": "./resources/gen/wasm_rs"
+    },
+    "devDependencies": {
+        "@types/node": "20.3.2",
+        "@types/react": "18.2.14",
+        "eslint": "8.43.0",
+        "eslint-config-next": "13.4.7",
+        "eslint-config-prettier": "^8.8.0",
+        "prettier": "2.8.8",
+        "typescript": "5.1.3"
+    }
 }
