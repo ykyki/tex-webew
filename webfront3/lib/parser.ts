@@ -1,16 +1,27 @@
-import { z } from 'zod';
+import { unknown, z } from 'zod';
 import { parse_paragraphs as w_parse_paragraphs } from 'wasm_rs';
 
-const apiStatusOk = z.object({
-    status: z.literal('ok'),
-    root: z.string(),
-    columns: z.array(z.unknown()),
-});
+const apiStatusOk = z
+    .object({
+        status: z.literal('ok'),
+        root: z.string(),
+        map: z.array(
+            z.object({
+                key: z.string(),
+                value: z.object({
+                    kind: z.string(),
+                }),
+            }),
+        ),
+    })
+    .strict();
 
-const apiStatusError = z.object({
-    status: z.literal('error'),
-    message: z.string(),
-});
+const apiStatusError = z
+    .object({
+        status: z.literal('error'),
+        message: z.string(),
+    })
+    .strict();
 
 const apiResult = z.union([apiStatusOk, apiStatusError]);
 
