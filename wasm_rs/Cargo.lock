@@ -126,8 +126,8 @@ dependencies = [
 
 [[package]]
 name = "tex_rsm_parser"
-version = "0.1.0"
-source = "git+ssh://git@github.com/ykyki/tex_rsm_parser.git?tag=v1.1#f447b680cec17be37b2f6e8977ec189727f37265"
+version = "1.1.0"
+source = "git+ssh://git@github.com/ykyki/tex_rsm_parser.git?tag=v1.2#05bd5ceb73b1f40b104e4b47643995f52aaee650"
 dependencies = [
  "anyhow",
  "serde",
