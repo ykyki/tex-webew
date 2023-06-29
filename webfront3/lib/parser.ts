@@ -65,3 +65,5 @@ const parseResultError = z
     .strict();
 
 const parseResult = z.union([parseResultOk, parseResultError]);
+
+export type ParseResult = z.infer<typeof parseResult>;
