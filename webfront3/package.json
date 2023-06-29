@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "dev": "next dev",
-        "build": "next build && next export -o ./out/tex-webew",
+        "build": "next build && next export -o ./out/tex-wpv",
         "start": "next start",
         "lint": "next lint",
         "format": "prettier -w ./"

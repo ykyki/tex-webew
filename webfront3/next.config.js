@@ -2,8 +2,8 @@
 const nextConfig = {
     reactStrictMode: true,
     swcMinify: true,
-    basePath: '/tex-webew',
-    assetPrefix: '/tex-webew/',
+    basePath: '/tex-wpv',
+    assetPrefix: '/tex-wpv',
     webpack: (config, { isServer }) => {
         config.experiments = {
             asyncWebAssembly: true,
