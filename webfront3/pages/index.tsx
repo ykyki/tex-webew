@@ -14,9 +14,6 @@ export default function Home() {
         },
         [],
     );
-    useEffect(() => {
-        console.log(text);
-    }, [text]);
 
     const [charCount, setCharCount] = useState(0);
     useEffect(() => {
