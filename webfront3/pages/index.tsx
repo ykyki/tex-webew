@@ -1,6 +1,7 @@
 import { ParseResult, parse_paragraphs } from '@lib/parser';
 import { ChangeEvent, useCallback, useEffect, useState } from 'react';
-import Container from '../components/container';
+import Container from '@components/container';
+import Meta from '@components/meta';
 
 export default function Home() {
     const initialText = `\\( \\mathscr{V} := U_x^X \\)は\\( X \\)の開被覆である.
@@ -29,6 +30,8 @@ export default function Home() {
 
     return (
         <Container>
+            <Meta />
+
             <h1>tex web view</h1>
             <Container>
                 <textarea
