@@ -44,7 +44,7 @@ const entryValue = z.union([
     evDisplayMath,
 ]);
 
-const entry = z.object({
+export const entry = z.object({
     key: z.string(),
     value: entryValue,
 });
