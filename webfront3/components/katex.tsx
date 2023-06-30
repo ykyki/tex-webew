@@ -11,14 +11,23 @@ const options: KatexOptions = {
     // macros, // todo
 };
 
-export default function Katex({ expr }: { expr: string }) {
+export default function Katex({
+    expr,
+    displayMode = false,
+}: {
+    expr: string;
+    displayMode?: boolean;
+}) {
     const container = useRef(null);
 
     useEffect(() => {
         if (container.current) {
-            katex.render(expr, container.current, options);
+            katex.render(expr, container.current, {
+                ...options,
+                displayMode,
+            });
         }
-    }, [expr]);
+    }, [expr, displayMode]);
 
     return <span ref={container} />;
 }

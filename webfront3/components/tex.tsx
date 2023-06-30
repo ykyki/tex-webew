@@ -63,7 +63,7 @@ export const DisplayMath: FC<{ status: boolean; content: string }> = ({
         return (
             <p style={{ textAlign: 'center' }}>
                 <span>
-                    <Katex expr={content} />
+                    <Katex expr={content} displayMode />
                 </span>
             </p>
         );
