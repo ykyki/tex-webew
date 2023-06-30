@@ -1,5 +1,5 @@
-import { stat } from 'fs';
 import { FC, ReactElement } from 'react';
+import Katex from './katex';
 
 type ComponentWithKey = {
     key: string;
@@ -45,9 +45,13 @@ export const InlineMath: FC<{ status: boolean; content: string }> = ({
     content,
 }) => {
     if (status) {
-        return <span style={{ textDecoration: 'underline' }}>{content}</span>;
+        return (
+            <span>
+                <Katex expr={content} />
+            </span>
+        );
     } else {
-        return <span style={{ color: 'red' }}>{content}</span>;
+        return <span style={{ color: '#cc0000' }}>{content}</span>;
     }
 };
 
@@ -58,13 +62,15 @@ export const DisplayMath: FC<{ status: boolean; content: string }> = ({
     if (status) {
         return (
             <p style={{ textAlign: 'center' }}>
-                <span style={{ textDecoration: 'underline' }}>{content}</span>
+                <span>
+                    <Katex expr={content} />
+                </span>
             </p>
         );
     } else {
         return (
             <p style={{ textAlign: 'center' }}>
-                <span style={{ color: 'red' }}>{content}</span>
+                <span style={{ color: '#cc0000' }}>{content}</span>
             </p>
         );
     }
