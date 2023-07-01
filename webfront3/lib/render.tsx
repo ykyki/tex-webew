@@ -17,7 +17,11 @@ export const render_parse_result_map = (
 
     if (value === undefined) {
         return (
-            <span>ERROR: key not found: {JSON.stringify({ key, prmap })}</span>
+            <span
+                key={key}
+                style={{ textDecoration: 'underline', color: '#cc0000' }}>
+                No Value: {key}
+            </span>
         );
     }
 
