@@ -26,9 +26,20 @@ export default function Home() {
     }, [text]);
 
     const [parseResult, setParseResult] = useState<ParseResult>();
+    const callParser = useCallback(
+        (text: string) => parse_paragraphs(text),
+        [],
+    );
+    const PARSING_TRIGGER_INTERVAL = 100;
     useEffect(() => {
-        setParseResult(parse_paragraphs(text));
-    }, [text]);
+        const intervalId = setInterval(() => {
+            setParseResult(callParser(text));
+        }, PARSING_TRIGGER_INTERVAL);
+
+        return () => {
+            clearInterval(intervalId);
+        };
+    }, [callParser, text]);
 
     const [prMap, setEntryMap] = useState<ParseResultMap>(new ParseResultMap());
     useEffect(() => {
