@@ -1,5 +1,5 @@
 import { ParseResult, parse_paragraphs } from '@lib/parser';
-import { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Container from '@components/container';
 import Meta from '@components/meta';
 import styles from 'styles/two-column.module.css';
@@ -10,15 +10,19 @@ export default function Home() {
     const initialText = `\\( \\mathscr{V} := U_x^X \\)は\\( X \\)の開被覆である.
 よって, \\( \\mathscr{V} := U_x^X \\)は\\( X \\)の開被覆である.
 
-`.repeat(2);
+`.repeat(100);
 
-    const [text, setText] = useState(initialText);
-    const textAreaHandler = useCallback(
-        (e: ChangeEvent<HTMLTextAreaElement>) => {
-            setText(e.target.value);
-        },
-        [],
-    );
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+    const [text, setText] = useState('');
+    const TEXT_UPDATE_INTERVAL_MS = 100;
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            setText(textareaRef.current?.value ?? '');
+        }, TEXT_UPDATE_INTERVAL_MS);
+
+        return () => clearInterval(intervalId);
+    }, []);
 
     const [charCount, setCharCount] = useState(0);
     useEffect(() => {
@@ -26,20 +30,9 @@ export default function Home() {
     }, [text]);
 
     const [parseResult, setParseResult] = useState<ParseResult>();
-    const callParser = useCallback(
-        (text: string) => parse_paragraphs(text),
-        [],
-    );
-    const PARSING_TRIGGER_INTERVAL = 100;
     useEffect(() => {
-        const intervalId = setInterval(() => {
-            setParseResult(callParser(text));
-        }, PARSING_TRIGGER_INTERVAL);
-
-        return () => {
-            clearInterval(intervalId);
-        };
-    }, [callParser, text]);
+        setParseResult(parse_paragraphs(text));
+    }, [text]);
 
     const [prMap, setEntryMap] = useState<ParseResultMap>(new ParseResultMap());
     useEffect(() => {
@@ -67,7 +60,7 @@ export default function Home() {
                 </div>
             )
         ) : (
-            <div>Undefined</div>
+            <div>Parsing ...</div>
         );
     }, [parseResult, prMap]);
 
@@ -80,8 +73,8 @@ export default function Home() {
                 <div className={styles.left_side}>
                     <Container>
                         <textarea
-                            value={text}
-                            onChange={textAreaHandler}
+                            ref={textareaRef}
+                            defaultValue={initialText}
                             style={{ width: '100%', height: '500px' }}
                         />
                         <span>count: {charCount}</span>
