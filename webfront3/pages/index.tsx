@@ -71,7 +71,7 @@ export default function Home() {
                         <textarea
                             value={text}
                             onChange={textAreaHandler}
-                            style={{ width: '100%', height: '1000px' }}
+                            style={{ width: '100%', height: '500px' }}
                         />
                         <span>count: {charCount}</span>
                     </Container>
