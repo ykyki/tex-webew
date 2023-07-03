@@ -24,15 +24,17 @@ export default function Home() {
         return () => clearInterval(intervalId);
     }, []);
 
-    const [charCount, setCharCount] = useState(0);
-    useEffect(() => {
-        setCharCount(text.length);
-    }, [text]);
-
     const [parseResult, setParseResult] = useState<ParseResult>();
     useEffect(() => {
         setParseResult(parse_paragraphs(text));
     }, [text]);
+
+    const [charCount, setCharCount] = useState(0);
+    useEffect(() => {
+        if (parseResult?.status === 'ok') {
+            setCharCount(parseResult.count);
+        }
+    }, [parseResult]);
 
     const [prMap, setEntryMap] = useState<ParseResultMap>(new ParseResultMap());
     useEffect(() => {
@@ -77,7 +79,7 @@ export default function Home() {
                             defaultValue={initialText}
                             style={{ width: '100%', height: '500px' }}
                         />
-                        <span>count: {charCount}</span>
+                        <div>count: {charCount}</div>
                     </Container>
                 </div>
                 <div className={styles.right_side}>
