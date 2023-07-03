@@ -17,7 +17,7 @@ const evParagraph = z.object({
     keys: z.array(z.string()),
 });
 const evText = z.object({
-    kind: z.literal('text'),
+    kind: z.literal('text').transform(() => 'raw_text' as const),
     content: z.string(),
 });
 const evInlineCommand = z.object({

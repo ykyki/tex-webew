@@ -44,7 +44,7 @@ export const render_parse_result_map = (
                     }))}
                 />
             );
-        case 'text':
+        case 'raw_text':
             return <PlainText content={value.content} />;
         case 'inline_command':
             return <InlineCommand content={value.content} />;
