@@ -26,7 +26,9 @@ export default function Home() {
 
     const [parseResult, setParseResult] = useState<ParseResult>();
     useEffect(() => {
-        setParseResult(parse_paragraphs(text));
+        parse_paragraphs(text).then((result) => {
+            setParseResult(result);
+        });
     }, [text]);
 
     const [charCount, setCharCount] = useState(0);

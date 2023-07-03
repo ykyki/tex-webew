@@ -1,11 +1,11 @@
 import { z } from 'zod';
 import { parse_paragraphs as w_parse_paragraphs } from 'wasm_rs';
 
-export const parse_paragraphs = (
+export const parse_paragraphs = async (
     input: string,
-): z.infer<typeof parseResult> => {
+): Promise<z.infer<typeof parseResult>> => {
     const result = w_parse_paragraphs(input);
-    return parseResult.parse(result);
+    return parseResult.parseAsync(result);
 };
 
 const evParagraphs = z.object({
