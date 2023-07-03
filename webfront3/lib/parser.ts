@@ -9,11 +9,11 @@ export const parse_paragraphs = (
 };
 
 const evParagraphs = z.object({
-    kind: z.literal('paragraphs'),
+    kind: z.literal('paras').transform(() => 'paragraphs' as const),
     keys: z.array(z.string()),
 });
 const evParagraph = z.object({
-    kind: z.literal('paragraph'),
+    kind: z.literal('para').transform(() => 'paragraph' as const),
     keys: z.array(z.string()),
 });
 const evText = z.object({
@@ -21,16 +21,16 @@ const evText = z.object({
     content: z.string(),
 });
 const evInlineCommand = z.object({
-    kind: z.literal('inline_command'),
+    kind: z.literal('il_cmd').transform(() => 'inline_command' as const),
     content: z.string(),
 });
 const evInlineMath = z.object({
-    kind: z.literal('inline_math'),
+    kind: z.literal('il_math').transform(() => 'inline_math' as const),
     status: z.union([z.literal('ok'), z.literal('error')]),
     content: z.string(),
 });
 const evDisplayMath = z.object({
-    kind: z.literal('display_math'),
+    kind: z.literal('ds_math').transform(() => 'display_math' as const),
     status: z.union([z.literal('ok'), z.literal('error')]),
     content: z.string(),
 });
@@ -53,7 +53,8 @@ const parseResultOk = z
     .object({
         status: z.literal('ok'),
         root: z.string(),
-        map: z.array(entry),
+        entries: z.array(entry),
+        count: z.number(),
     })
     .strict();
 

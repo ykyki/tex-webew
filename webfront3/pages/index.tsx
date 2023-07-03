@@ -42,7 +42,7 @@ export default function Home() {
             //     return prMap;
             // });
             const prMap = new ParseResultMap();
-            prMap.add(parseResult.map);
+            prMap.add(parseResult.entries);
             setEntryMap(prMap);
         }
     }, [parseResult]);
