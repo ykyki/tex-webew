@@ -1,17 +1,16 @@
 import { ParseResult, parse_paragraphs } from '@lib/parser';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Container from '@components/container';
 import Meta from '@components/meta';
 import styles from 'styles/two-column.module.css';
-import { ParseResultMap } from '@lib/entry-map';
-import { render_parse_result_map } from '@lib/render';
+import { ParseResultComponent } from '@components/parse-result';
 
-export default function Home() {
-    const initialText = `\\( \\mathscr{V} := U_x^X \\)は\\( X \\)の開被覆である.
+const initialText = `\\( \\mathscr{V} := U_x^X \\)は\\( X \\)の開被覆である.
 よって, \\( \\mathscr{V} := U_x^X \\)は\\( X \\)の開被覆である.
 
 `.repeat(100);
 
+export default function Home() {
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
     const [text, setText] = useState('');
@@ -38,35 +37,35 @@ export default function Home() {
         }
     }, [parseResult]);
 
-    const [prMap, setEntryMap] = useState<ParseResultMap>(new ParseResultMap());
-    useEffect(() => {
-        if (parseResult?.status === 'ok') {
-            // setEntryMap((prMap) => {
-            //     prMap.add(parseResult.map);
-            //     return prMap;
-            // });
-            const prMap = new ParseResultMap();
-            prMap.add(parseResult.entries);
-            setEntryMap(prMap);
-        }
-    }, [parseResult]);
+    // const [prMap, setEntryMap] = useState<ParseResultMap>(new ParseResultMap());
+    // useEffect(() => {
+    //     if (parseResult?.status === 'ok') {
+    //         // setEntryMap((prMap) => {
+    //         //     prMap.add(parseResult.map);
+    //         //     return prMap;
+    //         // });
+    //         const prMap = new ParseResultMap();
+    //         prMap.add(parseResult.entries);
+    //         setEntryMap(prMap);
+    //     }
+    // }, [parseResult]);
 
-    const render = useCallback(() => {
-        return parseResult ? (
-            parseResult.status === 'ok' ? (
-                <div style={{ wordBreak: 'break-all' }}>
-                    {render_parse_result_map(parseResult.root, prMap)}
-                </div>
-            ) : (
-                <div>
-                    <p>ParseError</p>
-                    <p>{parseResult.message}</p>
-                </div>
-            )
-        ) : (
-            <div>Parsing ...</div>
-        );
-    }, [parseResult, prMap]);
+    // const render = useCallback(() => {
+    //     return parseResult ? (
+    //         parseResult.status === 'ok' ? (
+    //             <div style={{ wordBreak: 'break-all' }}>
+    //                 {render_parse_result_map(parseResult.root, prMap)}
+    //             </div>
+    //         ) : (
+    //             <div>
+    //                 <p>ParseError</p>
+    //                 <p>{parseResult.message}</p>
+    //             </div>
+    //         )
+    //     ) : (
+    //         <div>Parsing ...</div>
+    //     );
+    // }, [parseResult, prMap]);
 
     return (
         <Container large>
@@ -85,7 +84,9 @@ export default function Home() {
                     </Container>
                 </div>
                 <div className={styles.right_side}>
-                    <Container>{render()}</Container>
+                    <Container>
+                        <ParseResultComponent parseResult={parseResult} />
+                    </Container>
                 </div>
             </div>
         </Container>

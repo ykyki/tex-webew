@@ -29,8 +29,8 @@ export const render_parse_result_map = (
         case 'paragraphs':
             return (
                 <Paragraphs
-                    components={value.keys.map((key) => ({
-                        key,
+                    components={value.keys.map((key, i) => ({
+                        key: i.toString(),
                         body: render_parse_result_map(key, prmap),
                     }))}
                 />
@@ -38,8 +38,8 @@ export const render_parse_result_map = (
         case 'paragraph':
             return (
                 <Paragraph
-                    components={value.keys.map((key) => ({
-                        key,
+                    components={value.keys.map((key, i) => ({
+                        key: i.toString(),
                         body: render_parse_result_map(key, prmap),
                     }))}
                 />
