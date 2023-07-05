@@ -175,7 +175,7 @@ const is_in_ev_display_math = (x: unknown): x is InEVDisplayMath =>
     typeof x.content === 'string';
 
 const to_ev_display_math = (x: unknown): EVDisplayMath => {
-    if (is_in_ev_inline_math(x)) {
+    if (is_in_ev_display_math(x)) {
         return {
             kind: 'display_math',
             status: x.status,
@@ -188,7 +188,13 @@ const to_ev_display_math = (x: unknown): EVDisplayMath => {
 
 type Entry = {
     key: string;
-    value: EVParagraphs | EVParagraph;
+    value:
+        | EVParagraphs
+        | EVParagraph
+        | EVText
+        | EVInlineCommand
+        | EVInlineMath
+        | EVDisplayMath;
 };
 
 const to_entry = (x: unknown): Entry => {
@@ -217,7 +223,7 @@ const to_entry = (x: unknown): Entry => {
                 value = to_ev_inline_math(x.value);
                 break;
             case 'ds_math':
-                value = to_ev_inline_math(x.value);
+                value = to_ev_display_math(x.value);
                 break;
             case 'il_cmd':
                 value = to_ev_inline_command(x.value);
