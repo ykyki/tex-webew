@@ -1,4 +1,4 @@
-import { ParseResult, parse_paragraphs } from '@lib/parser';
+import { ParseResult, parse_paragraphs } from '@lib/parser2';
 import { useEffect, useRef, useState } from 'react';
 import Container from '@components/container';
 import Meta from '@components/meta';
