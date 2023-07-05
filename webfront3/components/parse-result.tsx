@@ -1,7 +1,7 @@
 import { ParseResultMap } from '@lib/entry-map';
 import { ParseResult } from '@lib/parser';
-import { render_parse_result_map } from '@lib/render';
 import { ReactElement } from 'react';
+import { ParseResultMapComponent } from './tex';
 
 export function ParseResultComponent({
     parseResult,
@@ -15,7 +15,10 @@ export function ParseResultComponent({
 
             return (
                 <div style={{ wordBreak: 'break-all' }}>
-                    {render_parse_result_map(parseResult.root, prMap)}
+                    <ParseResultMapComponent
+                        id={parseResult.root}
+                        prMap={prMap}
+                    />
                 </div>
             );
         } else {
