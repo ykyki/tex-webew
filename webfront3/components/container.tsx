@@ -1,10 +1,11 @@
+import { ReactNode } from 'react';
 import styles from 'styles/container.module.css';
 
 export default function Container({
     children,
     large = false,
 }: {
-    children: React.ReactNode;
+    children: ReactNode;
     large?: boolean;
 }) {
     return (

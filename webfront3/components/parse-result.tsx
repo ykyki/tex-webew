@@ -1,13 +1,11 @@
 import { ParseResultMap } from '@lib/entry-map';
 import { ParseResult } from '@lib/parser';
-import { ReactElement } from 'react';
+import { FC } from 'react';
 import { ParseResultMapComponent } from './tex';
 
-export function ParseResultComponent({
-    parseResult,
-}: {
+export const ParseResultComponent: FC<{
     parseResult: ParseResult | undefined;
-}): ReactElement {
+}> = ({ parseResult }) => {
     if (parseResult) {
         if (parseResult.status === 'ok') {
             const prMap = new ParseResultMap();
@@ -32,4 +30,4 @@ export function ParseResultComponent({
     } else {
         return <div>Parsing ...</div>;
     }
-}
+};

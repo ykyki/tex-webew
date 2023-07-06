@@ -8,7 +8,7 @@ import { ParseResultComponent } from '@components/parse-result';
 const initialText = `\\( \\mathscr{V} := U_x^X \\)は\\( X \\)の開被覆である.
 よって, \\( \\mathscr{V} := U_x^X \\)は\\( X \\)の開被覆である.
 
-`.repeat(100);
+`.repeat(10);
 
 export default function Home() {
     const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -36,36 +36,6 @@ export default function Home() {
             setCharCount(parseResult.count);
         }
     }, [parseResult]);
-
-    // const [prMap, setEntryMap] = useState<ParseResultMap>(new ParseResultMap());
-    // useEffect(() => {
-    //     if (parseResult?.status === 'ok') {
-    //         // setEntryMap((prMap) => {
-    //         //     prMap.add(parseResult.map);
-    //         //     return prMap;
-    //         // });
-    //         const prMap = new ParseResultMap();
-    //         prMap.add(parseResult.entries);
-    //         setEntryMap(prMap);
-    //     }
-    // }, [parseResult]);
-
-    // const render = useCallback(() => {
-    //     return parseResult ? (
-    //         parseResult.status === 'ok' ? (
-    //             <div style={{ wordBreak: 'break-all' }}>
-    //                 {render_parse_result_map(parseResult.root, prMap)}
-    //             </div>
-    //         ) : (
-    //             <div>
-    //                 <p>ParseError</p>
-    //                 <p>{parseResult.message}</p>
-    //             </div>
-    //         )
-    //     ) : (
-    //         <div>Parsing ...</div>
-    //     );
-    // }, [parseResult, prMap]);
 
     return (
         <Container large>
