@@ -7,67 +7,62 @@ type ComponentWithId = {
     body: ReactElement;
 };
 
-export const ParseResultMapComponent = memo(
-    function ParseResultMapComponent({
-        id,
-        prMap,
-    }: {
-        id: string;
-        prMap: ParseResultMap;
-    }) {
-        const value = prMap.find(id);
+const _ParseResultMapComponent: FC<{
+    id: string;
+    prMap: ParseResultMap;
+}> = ({ id, prMap }) => {
+    const value = prMap.find(id);
 
-        if (value === undefined) {
+    if (value === undefined) {
+        return (
+            <span style={{ textDecoration: 'underline', color: '#cc0000' }}>
+                No Value: {id}
+            </span>
+        );
+    }
+
+    switch (value.kind) {
+        case 'paragraphs':
             return (
-                <span style={{ textDecoration: 'underline', color: '#cc0000' }}>
-                    No Value: {id}
-                </span>
+                <Paragraphs
+                    components={value.keys.map((x) => ({
+                        id: x,
+                        body: <ParseResultMapComponent id={x} prMap={prMap} />,
+                    }))}
+                />
             );
-        }
+        case 'paragraph':
+            return (
+                <Paragraph
+                    components={value.keys.map((x) => ({
+                        id: x,
+                        body: <ParseResultMapComponent id={x} prMap={prMap} />,
+                    }))}
+                />
+            );
+        case 'raw_text':
+            return <PlainText content={value.content} />;
+        case 'inline_command':
+            return <InlineCommand content={value.content} />;
+        case 'inline_math':
+            return (
+                <InlineMath
+                    status={value.status === 'ok'}
+                    content={value.content}
+                />
+            );
+        case 'display_math':
+            return (
+                <DisplayMath
+                    status={value.status === 'ok'}
+                    content={value.content}
+                />
+            );
+    }
+};
 
-        switch (value.kind) {
-            case 'paragraphs':
-                return (
-                    <Paragraphs
-                        components={value.keys.map((x) => ({
-                            id: x,
-                            body: (
-                                <ParseResultMapComponent id={x} prMap={prMap} />
-                            ),
-                        }))}
-                    />
-                );
-            case 'paragraph':
-                return (
-                    <Paragraph
-                        components={value.keys.map((x) => ({
-                            id: x,
-                            body: (
-                                <ParseResultMapComponent id={x} prMap={prMap} />
-                            ),
-                        }))}
-                    />
-                );
-            case 'raw_text':
-                return <PlainText content={value.content} />;
-            case 'inline_command':
-                return <InlineCommand content={value.content} />;
-            case 'inline_math':
-                return (
-                    <InlineMath
-                        status={value.status === 'ok'}
-                        content={value.content}
-                    />
-                );
-            case 'display_math':
-                return (
-                    <DisplayMath
-                        status={value.status === 'ok'}
-                        content={value.content}
-                    />
-                );
-        }
-    },
+export const ParseResultMapComponent = memo(
+    _ParseResultMapComponent,
     (prevProps, nextProps) => prevProps.id === nextProps.id,
 );
 
