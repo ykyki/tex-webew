@@ -1,6 +1,6 @@
 import { FC, ReactElement, memo } from 'react';
 import Katex from './katex';
-import { ParseResultMap } from '@lib/entry-map';
+import { ParseResultMap } from '@lib/parse-result-map';
 
 type ComponentWithKey = {
     _key: string;

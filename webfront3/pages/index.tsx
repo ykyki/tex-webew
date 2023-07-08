@@ -1,9 +1,10 @@
 import { ParseResult, parse_paragraphs } from '@lib/parser';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, FC } from 'react';
 import Container from '@components/container';
 import Meta from '@components/meta';
 import styles from 'styles/two-column.module.css';
-import { ParseResultComponent } from '@components/parse-result';
+import { ParseResultMap } from '@lib/parse-result-map';
+import { ParseResultMapComponent } from '@components/tex';
 
 const initialText = `\\( \\mathscr{V} := U_x^X \\)は\\( X \\)の開被覆である.
 よって, \\( \\mathscr{V} := U_x^X \\)は\\( X \\)の開被覆である.
@@ -62,3 +63,32 @@ export default function Home() {
         </Container>
     );
 }
+
+const ParseResultComponent: FC<{
+    parseResult: ParseResult | undefined;
+}> = ({ parseResult }) => {
+    if (parseResult) {
+        if (parseResult.status === 'ok') {
+            const prMap = new ParseResultMap();
+            prMap.add(parseResult.entries);
+
+            return (
+                <div style={{ wordBreak: 'break-all' }}>
+                    <ParseResultMapComponent
+                        id={parseResult.root}
+                        prMap={prMap}
+                    />
+                </div>
+            );
+        } else {
+            return (
+                <div>
+                    <p>ParseError</p>
+                    <p>{parseResult.message}</p>
+                </div>
+            );
+        }
+    } else {
+        return <div>Parsing ...</div>;
+    }
+};
