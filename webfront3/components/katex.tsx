@@ -1,6 +1,6 @@
 import katex, { KatexOptions } from 'katex';
 import 'katex/dist/katex.min.css';
-import { useEffect, useRef } from 'react';
+import { FC, useEffect, useRef } from 'react';
 
 const options: KatexOptions = {
     throwOnError: false,
@@ -11,13 +11,10 @@ const options: KatexOptions = {
     // macros, // todo
 };
 
-export default function Katex({
-    expr,
-    displayMode = false,
-}: {
+const KatexComponent: FC<{
     expr: string;
     displayMode?: boolean;
-}) {
+}> = ({ expr, displayMode = false }) => {
     const ref = useRef<HTMLSpanElement>(null);
 
     useEffect(() => {
@@ -30,4 +27,6 @@ export default function Katex({
     }, [expr, displayMode]);
 
     return <span ref={ref} />;
-}
+};
+
+export default KatexComponent;

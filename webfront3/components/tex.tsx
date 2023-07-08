@@ -1,16 +1,16 @@
 import { FC, ReactElement, memo } from 'react';
-import Katex from './katex';
-import { ParseResultMap } from '@lib/entry-map';
+import KatexComponent from './katex';
+import { ParseResultMap } from '@lib/parse-result-map';
 
-type ComponentWithId = {
-    id: string;
+type ComponentWithKey = {
+    _key: string;
     body: ReactElement;
 };
 
 const _ParseResultMapComponent: FC<{
-    id: string;
+    _key: string;
     prMap: ParseResultMap;
-}> = ({ id, prMap }) => {
+}> = ({ _key: id, prMap }) => {
     const value = prMap.find(id);
 
     if (value === undefined) {
@@ -26,8 +26,10 @@ const _ParseResultMapComponent: FC<{
             return (
                 <Paragraphs
                     components={value.keys.map((x) => ({
-                        id: x,
-                        body: <ParseResultMapComponent id={x} prMap={prMap} />,
+                        _key: x,
+                        body: (
+                            <ParseResultMapComponent _key={x} prMap={prMap} />
+                        ),
                     }))}
                 />
             );
@@ -35,8 +37,10 @@ const _ParseResultMapComponent: FC<{
             return (
                 <Paragraph
                     components={value.keys.map((x) => ({
-                        id: x,
-                        body: <ParseResultMapComponent id={x} prMap={prMap} />,
+                        _key: x,
+                        body: (
+                            <ParseResultMapComponent _key={x} prMap={prMap} />
+                        ),
                     }))}
                 />
             );
@@ -63,29 +67,28 @@ const _ParseResultMapComponent: FC<{
 
 export const ParseResultMapComponent = memo(
     _ParseResultMapComponent,
-    (prevProps, nextProps) => prevProps.id === nextProps.id,
+    // _keyにはvalueのhash値が入っているので, _keyのみを比較すれば十分
+    (prevProps, nextProps) => prevProps._key === nextProps._key,
 );
 
-export const Paragraphs: FC<{ components: ComponentWithId[] }> = ({
+export const Paragraphs: FC<{ components: ComponentWithKey[] }> = ({
     components,
 }) => {
     return (
         <div>
             {components.map((x, i) => (
-                // <div key={x.id}>{x.body}</div>
                 <div key={i}>{x.body}</div>
             ))}
         </div>
     );
 };
 
-export const Paragraph: FC<{ components: ComponentWithId[] }> = ({
+export const Paragraph: FC<{ components: ComponentWithKey[] }> = ({
     components,
 }) => {
     return (
         <p>
             {components.map((x, i) => (
-                // <span key={x.id}>{x.body}</span>
                 <span key={i}>{x.body}</span>
             ))}
         </p>
@@ -109,7 +112,7 @@ export const InlineMath: FC<{ status: boolean; content: string }> = ({
     if (status) {
         return (
             <span>
-                <Katex expr={content} />
+                <KatexComponent expr={content} />
             </span>
         );
     } else {
@@ -125,7 +128,7 @@ export const DisplayMath: FC<{ status: boolean; content: string }> = ({
         return (
             <p style={{ textAlign: 'center' }}>
                 <span>
-                    <Katex expr={content} displayMode />
+                    <KatexComponent expr={content} displayMode />
                 </span>
             </p>
         );

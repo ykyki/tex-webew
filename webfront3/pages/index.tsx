@@ -1,14 +1,15 @@
-import { ParseResult, parse_paragraphs } from '@lib/parser2';
-import { useEffect, useRef, useState } from 'react';
+import { ParseResult, parse_paragraphs } from '@lib/parser';
+import { useEffect, useRef, useState, FC } from 'react';
 import Container from '@components/container';
 import Meta from '@components/meta';
 import styles from 'styles/two-column.module.css';
-import { ParseResultComponent } from '@components/parse-result';
+import { ParseResultMap } from '@lib/parse-result-map';
+import { ParseResultMapComponent } from '@components/tex';
 
 const initialText = `\\( \\mathscr{V} := U_x^X \\)は\\( X \\)の開被覆である.
 よって, \\( \\mathscr{V} := U_x^X \\)は\\( X \\)の開被覆である.
 
-`.repeat(10);
+`.repeat(1000);
 
 export default function Home() {
     const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -41,7 +42,7 @@ export default function Home() {
         <Container large>
             <Meta />
 
-            <h1>tex web view</h1>
+            <h1>TeX Web Preview</h1>
             <div className={styles.two_column}>
                 <div className={styles.left_side}>
                     <Container>
@@ -62,3 +63,32 @@ export default function Home() {
         </Container>
     );
 }
+
+const ParseResultComponent: FC<{
+    parseResult: ParseResult | undefined;
+}> = ({ parseResult }) => {
+    if (parseResult) {
+        if (parseResult.status === 'ok') {
+            const prMap = new ParseResultMap();
+            prMap.add(parseResult.entries);
+
+            return (
+                <div style={{ wordBreak: 'break-all' }}>
+                    <ParseResultMapComponent
+                        _key={parseResult.root}
+                        prMap={prMap}
+                    />
+                </div>
+            );
+        } else {
+            return (
+                <div>
+                    <p>ParseError</p>
+                    <p>{parseResult.message}</p>
+                </div>
+            );
+        }
+    } else {
+        return <div>Parsing ...</div>;
+    }
+};
