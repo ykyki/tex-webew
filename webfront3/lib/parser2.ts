@@ -186,15 +186,17 @@ const to_ev_display_math = (x: unknown): EVDisplayMath => {
     }
 };
 
-type Entry = {
+type EValue =
+    | EVParagraphs
+    | EVParagraph
+    | EVText
+    | EVInlineCommand
+    | EVInlineMath
+    | EVDisplayMath;
+
+export type Entry = {
     key: string;
-    value:
-        | EVParagraphs
-        | EVParagraph
-        | EVText
-        | EVInlineCommand
-        | EVInlineMath
-        | EVDisplayMath;
+    value: EValue;
 };
 
 const to_entry = (x: unknown): Entry => {

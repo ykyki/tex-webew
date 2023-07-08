@@ -1,7 +1,5 @@
-import { z } from 'zod';
-import { entry as entrySchema } from '@lib/parser';
+import { Entry } from './parser2';
 
-type Entry = z.infer<typeof entrySchema>;
 type EValue = Entry['value'];
 
 export class ParseResultMap {
