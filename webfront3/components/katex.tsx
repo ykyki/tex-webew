@@ -18,16 +18,16 @@ export default function Katex({
     expr: string;
     displayMode?: boolean;
 }) {
-    const container = useRef(null);
+    const ref = useRef<HTMLSpanElement>(null);
 
     useEffect(() => {
-        if (container.current) {
-            katex.render(expr, container.current, {
+        if (ref.current) {
+            katex.render(expr, ref.current, {
                 ...options,
                 displayMode,
             });
         }
     }, [expr, displayMode]);
 
-    return <span ref={container} />;
+    return <span ref={ref} />;
 }
