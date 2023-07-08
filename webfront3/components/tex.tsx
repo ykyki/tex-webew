@@ -1,5 +1,5 @@
 import { FC, ReactElement, memo } from 'react';
-import Katex from './katex';
+import KatexComponent from './katex';
 import { ParseResultMap } from '@lib/parse-result-map';
 
 type ComponentWithKey = {
@@ -112,7 +112,7 @@ export const InlineMath: FC<{ status: boolean; content: string }> = ({
     if (status) {
         return (
             <span>
-                <Katex expr={content} />
+                <KatexComponent expr={content} />
             </span>
         );
     } else {
@@ -128,7 +128,7 @@ export const DisplayMath: FC<{ status: boolean; content: string }> = ({
         return (
             <p style={{ textAlign: 'center' }}>
                 <span>
-                    <Katex expr={content} displayMode />
+                    <KatexComponent expr={content} displayMode />
                 </span>
             </p>
         );

@@ -42,7 +42,7 @@ export default function Home() {
         <Container large>
             <Meta />
 
-            <h1>tex web view</h1>
+            <h1>TeX Web Preview</h1>
             <div className={styles.two_column}>
                 <div className={styles.left_side}>
                     <Container>
