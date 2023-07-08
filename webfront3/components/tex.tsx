@@ -8,9 +8,9 @@ type ComponentWithKey = {
 };
 
 const _ParseResultMapComponent: FC<{
-    id: string;
+    _key: string;
     prMap: ParseResultMap;
-}> = ({ id, prMap }) => {
+}> = ({ _key: id, prMap }) => {
     const value = prMap.find(id);
 
     if (value === undefined) {
@@ -27,7 +27,9 @@ const _ParseResultMapComponent: FC<{
                 <Paragraphs
                     components={value.keys.map((x) => ({
                         _key: x,
-                        body: <ParseResultMapComponent id={x} prMap={prMap} />,
+                        body: (
+                            <ParseResultMapComponent _key={x} prMap={prMap} />
+                        ),
                     }))}
                 />
             );
@@ -36,7 +38,9 @@ const _ParseResultMapComponent: FC<{
                 <Paragraph
                     components={value.keys.map((x) => ({
                         _key: x,
-                        body: <ParseResultMapComponent id={x} prMap={prMap} />,
+                        body: (
+                            <ParseResultMapComponent _key={x} prMap={prMap} />
+                        ),
                     }))}
                 />
             );
@@ -63,7 +67,8 @@ const _ParseResultMapComponent: FC<{
 
 export const ParseResultMapComponent = memo(
     _ParseResultMapComponent,
-    (prevProps, nextProps) => prevProps.id === nextProps.id,
+    // _keyにはvalueのhash値が入っているので, _keyのみを比較すれば十分
+    (prevProps, nextProps) => prevProps._key === nextProps._key,
 );
 
 export const Paragraphs: FC<{ components: ComponentWithKey[] }> = ({
@@ -72,7 +77,6 @@ export const Paragraphs: FC<{ components: ComponentWithKey[] }> = ({
     return (
         <div>
             {components.map((x, i) => (
-                // <div key={x.id}>{x.body}</div>
                 <div key={i}>{x.body}</div>
             ))}
         </div>
@@ -85,7 +89,6 @@ export const Paragraph: FC<{ components: ComponentWithKey[] }> = ({
     return (
         <p>
             {components.map((x, i) => (
-                // <span key={x.id}>{x.body}</span>
                 <span key={i}>{x.body}</span>
             ))}
         </p>

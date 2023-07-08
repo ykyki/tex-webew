@@ -75,7 +75,7 @@ const ParseResultComponent: FC<{
             return (
                 <div style={{ wordBreak: 'break-all' }}>
                     <ParseResultMapComponent
-                        id={parseResult.root}
+                        _key={parseResult.root}
                         prMap={prMap}
                     />
                 </div>
