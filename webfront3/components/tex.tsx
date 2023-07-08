@@ -2,8 +2,8 @@ import { FC, ReactElement, memo } from 'react';
 import Katex from './katex';
 import { ParseResultMap } from '@lib/entry-map';
 
-type ComponentWithId = {
-    id: string;
+type ComponentWithKey = {
+    _key: string;
     body: ReactElement;
 };
 
@@ -26,7 +26,7 @@ const _ParseResultMapComponent: FC<{
             return (
                 <Paragraphs
                     components={value.keys.map((x) => ({
-                        id: x,
+                        _key: x,
                         body: <ParseResultMapComponent id={x} prMap={prMap} />,
                     }))}
                 />
@@ -35,7 +35,7 @@ const _ParseResultMapComponent: FC<{
             return (
                 <Paragraph
                     components={value.keys.map((x) => ({
-                        id: x,
+                        _key: x,
                         body: <ParseResultMapComponent id={x} prMap={prMap} />,
                     }))}
                 />
@@ -66,7 +66,7 @@ export const ParseResultMapComponent = memo(
     (prevProps, nextProps) => prevProps.id === nextProps.id,
 );
 
-export const Paragraphs: FC<{ components: ComponentWithId[] }> = ({
+export const Paragraphs: FC<{ components: ComponentWithKey[] }> = ({
     components,
 }) => {
     return (
@@ -79,7 +79,7 @@ export const Paragraphs: FC<{ components: ComponentWithId[] }> = ({
     );
 };
 
-export const Paragraph: FC<{ components: ComponentWithId[] }> = ({
+export const Paragraph: FC<{ components: ComponentWithKey[] }> = ({
     components,
 }) => {
     return (
