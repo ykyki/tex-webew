@@ -1,4 +1,4 @@
-import { Entry } from './parser2';
+import { Entry } from './parser';
 
 type EValue = Entry['value'];
 

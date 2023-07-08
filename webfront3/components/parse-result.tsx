@@ -1,5 +1,5 @@
 import { ParseResultMap } from '@lib/entry-map';
-import { ParseResult } from '@lib/parser2';
+import { ParseResult } from '@lib/parser';
 import { FC } from 'react';
 import { ParseResultMapComponent } from './tex';
 
