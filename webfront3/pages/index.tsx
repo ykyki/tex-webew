@@ -9,7 +9,7 @@ import { ParseResultMapComponent } from '@components/tex';
 const initialText = `\\( \\mathscr{V} := U_x^X \\)は\\( X \\)の開被覆である.
 よって, \\( \\mathscr{V} := U_x^X \\)は\\( X \\)の開被覆である.
 
-`.repeat(10);
+`.repeat(1000);
 
 export default function Home() {
     const textareaRef = useRef<HTMLTextAreaElement>(null);
