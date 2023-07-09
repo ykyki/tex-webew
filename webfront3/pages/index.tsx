@@ -2,14 +2,14 @@ import { ParseResult, parse_paragraphs } from '@lib/parser';
 import { useEffect, useRef, useState, FC } from 'react';
 import Container from '@components/container';
 import Meta from '@components/meta';
-import styles from 'styles/two-column.module.css';
+import styles from '@styles/two-column.module.css';
 import { ParseResultMap } from '@lib/parse-result-map';
 import { ParseResultMapComponent } from '@components/tex';
 
 const initialText = `\\( \\mathscr{V} := U_x^X \\)は\\( X \\)の開被覆である.
 よって, \\( \\mathscr{V} := U_x^X \\)は\\( X \\)の開被覆である.
 
-`.repeat(1000);
+`.repeat(10);
 
 export default function Home() {
     const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -45,19 +45,24 @@ export default function Home() {
             <h1>TeX Web Preview</h1>
             <div className={styles.two_column}>
                 <div className={styles.left_side}>
-                    <Container>
+                    <div style={{ height: '100%' }}>
                         <textarea
                             ref={textareaRef}
                             defaultValue={initialText}
-                            style={{ width: '100%', height: '500px' }}
+                            style={{ width: '100%', height: '90%' }}
                         />
                         <div>count: {charCount}</div>
-                    </Container>
+                    </div>
                 </div>
                 <div className={styles.right_side}>
-                    <Container>
+                    <div
+                        style={{
+                            maxHeight: '80vh',
+                            maxWidth: '50vh',
+                            overflow: 'auto',
+                        }}>
                         <ParseResultComponent parseResult={parseResult} />
-                    </Container>
+                    </div>
                 </div>
             </div>
         </Container>

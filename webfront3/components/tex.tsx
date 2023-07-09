@@ -1,6 +1,7 @@
 import { FC, ReactElement, memo } from 'react';
 import KatexComponent from './katex';
 import { ParseResultMap } from '@lib/parse-result-map';
+import displayMathStyles from '@styles/display-math.module.css';
 
 type ComponentWithKey = {
     _key: string;
@@ -111,7 +112,7 @@ export const InlineMath: FC<{ status: boolean; content: string }> = ({
 }) => {
     if (status) {
         return (
-            <span>
+            <span style={{ margin: '0.2em' }}>
                 <KatexComponent expr={content} />
             </span>
         );
@@ -126,17 +127,17 @@ export const DisplayMath: FC<{ status: boolean; content: string }> = ({
 }) => {
     if (status) {
         return (
-            <p style={{ textAlign: 'center' }}>
+            <div className={displayMathStyles.display_math}>
                 <span>
                     <KatexComponent expr={content} displayMode />
                 </span>
-            </p>
+            </div>
         );
     } else {
         return (
-            <p style={{ textAlign: 'center' }}>
+            <div className={displayMathStyles.display_math}>
                 <span style={{ color: '#cc0000' }}>{content}</span>
-            </p>
+            </div>
         );
     }
 };
