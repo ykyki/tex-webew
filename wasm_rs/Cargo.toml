@@ -11,4 +11,4 @@ wasm-bindgen = "0.2.83"
 serde = { version = "1.0.147", features = ["derive"] }
 serde-wasm-bindgen = "0.4.5"
 
-tex_rsm_parser = { git = "ssh://git@github.com/ykyki/tex_rsm_parser.git", tag = "v1.7" }
+tex_rsm_parser = { git = "ssh://git@github.com/ykyki/tex_rsm_parser.git", tag = "v1.9" }
