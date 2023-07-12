@@ -82,7 +82,6 @@ export default function Home() {
                     <div
                         style={{
                             maxHeight: '80vh',
-                            maxWidth: '50vh',
                             overflow: 'auto',
                         }}>
                         <ParseResultComponent parseResult={parseResult} />
