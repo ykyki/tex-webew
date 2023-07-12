@@ -6,10 +6,34 @@ import styles from '@styles/two-column.module.css';
 import { ParseResultMap } from '@lib/parse-result-map';
 import { ParseResultMapComponent } from '@components/tex';
 
-const initialText = `\\( \\mathscr{V} := U_x^X \\)は\\( X \\)の開被覆である.
-よって, \\( \\mathscr{V} := U_x^X \\)は\\( X \\)の開被覆である.
+const initialText =
+    String.raw`\topT{3}位相空間$X$が可算コンパクトでないと仮定して、ある点有限な開被覆で有限部分被覆をもたないものが存在することを示す.
 
-`.repeat(10);
+$ X $が可算コンパクトでなければ,
+点列$ (x_n)_{n \in \N} $であって集積点を持たないものが存在する.
+$ x_0 $が$ \{x_n\}_{n \in \N} $の集積点でないことから
+$ x_0 $の開近傍$ U_0 $であって
+$$ U_0 \cap \{x_1, x_2, x_3, \cdots\} = \emptyset $$
+を満たすものが存在する.
+また, $ X $が \topT{3} であることから,
+閉近傍$ V_0 $であって$ x_0 \in V_0 \subset U_0 $を満たすものが存在する.
+$ n \leq k $に対して,
+$ V_n $は$ \{x_{k+1}, x_{k+2}, x_{k+3}, \cdots\}$
+と交わらない$ x_n $の閉近傍であり,
+相異なる$ i, j \leq k $について$ V_i \cap V_j = \emptyset $を満たすものとする.
+このとき,
+$$ \left(\bigcup_{n=0}^{n=k} V_{n} \right) \cup \{x_{k+2}, x_{k+3}, x_{k+4}, \cdots\} $$
+は$ x_{k+1} $を含まない閉集合なので,
+$ x_{k+1} $の閉近傍$ V_{k+1} $であって,
+$$ \left(\bigcup_{n=0}^{n=k} V_{n} \right) \cup \{x_{k+2}, x_{k+3}, x_{k+4}, \cdots\} $$
+と交わらないものがとれる.
+$ W := X \setminus \{x_n\}_{n \in \N} $とし,
+$$ \mathscr{V} := \{\mathop{\mathrm{Int}}\nolimits V_n\}_{n \in \N} \cup \{W\} $$
+と定めると,
+$ \mathscr{V} $は点有限な開被覆となるが部分被覆をもたない.
+
+よって, 任意の点有限な開被覆が有限部分被覆をもつならば可算コンパクトである.
+`.repeat(1);
 
 export default function Home() {
     const textareaRef = useRef<HTMLTextAreaElement>(null);
