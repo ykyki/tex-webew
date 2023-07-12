@@ -102,7 +102,9 @@ export const PlainText: FC<{ content: string }> = ({ content }) => {
 
 export const InlineCommand: FC<{ content: string }> = ({ content }) => {
     return (
-        <span style={{ textDecoration: 'underline double' }}>{content}</span>
+        <span style={{ margin: '0.2em', textDecoration: 'underline double' }}>
+            {content}
+        </span>
     );
 };
 
