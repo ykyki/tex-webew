@@ -5,6 +5,7 @@ import Meta from '@components/meta';
 import styles from '@styles/two-column.module.css';
 import { ParseResultMap } from '@lib/parse-result-map';
 import { ParseResultMapComponent } from '@components/tex';
+import DynamicHeightTextarea from '@components/dynamic-height-textarea';
 
 const initialText =
     String.raw`\topT{3}位相空間$X$が可算コンパクトでないと仮定して、ある点有限な開被覆で有限部分被覆をもたないものが存在することを示す.
@@ -70,20 +71,15 @@ export default function Home() {
             <div className={styles.two_column}>
                 <div className={styles.left_side}>
                     <div style={{ height: '100%' }}>
-                        <textarea
-                            ref={textareaRef}
+                        <DynamicHeightTextarea
+                            textareaRef={textareaRef}
                             defaultValue={initialText}
-                            style={{ width: '100%', height: '90%' }}
                         />
                         <div>count: {charCount}</div>
                     </div>
                 </div>
                 <div className={styles.right_side}>
-                    <div
-                        style={{
-                            maxHeight: '80vh',
-                            overflow: 'auto',
-                        }}>
+                    <div>
                         <ParseResultComponent parseResult={parseResult} />
                     </div>
                 </div>
