@@ -8,7 +8,14 @@ const options: KatexOptions = {
     errorColor: '#cc0000',
     strict: 'ignore',
     trust: false,
-    // macros, // todo
+    macros: {
+        '\\C': '\\mathbb{C}', // サンプル
+        '\\X': '\\mathbb{X}', // サンプル
+    },
+    // 暫定的にtrueにしている
+    // TODO: コンポネント毎にmacrosを渡すように, globalGroupを使用しないようにする
+    // 再レンダリング回数抑制しているため, 思ったように表示が更新されないことがある
+    globalGroup: true,
 };
 
 const KatexComponent: FC<{

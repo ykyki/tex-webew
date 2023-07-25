@@ -129,17 +129,21 @@ export const DisplayMath: FC<{ status: boolean; content: string }> = ({
 }) => {
     if (status) {
         return (
-            <div className={displayMathStyles.display_math}>
+            <span
+                className={displayMathStyles.display_math}
+                style={{ display: 'block' }}>
                 <span>
                     <KatexComponent expr={content} displayMode />
                 </span>
-            </div>
+            </span>
         );
     } else {
         return (
-            <div className={displayMathStyles.display_math}>
+            <span
+                className={displayMathStyles.display_math}
+                style={{ display: 'block' }}>
                 <span style={{ color: '#cc0000' }}>{content}</span>
-            </div>
+            </span>
         );
     }
 };

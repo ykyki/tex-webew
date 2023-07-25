@@ -4,9 +4,11 @@ import Container from '@components/container';
 import Meta from '@components/meta';
 import styles from '@styles/two-column.module.css';
 import { ParseResultMap } from '@lib/parse-result-map';
-import { ParseResultMapComponent } from '@components/tex';
+import { ParseResultMapComponent } from '@components/parse-result-map';
+import DynamicHeightTextarea from '@components/dynamic-height-textarea';
+import { useRouter } from 'next/router';
 
-const initialText =
+const sampleTextTopology =
     String.raw`\topT{3}位相空間$X$が可算コンパクトでないと仮定して、ある点有限な開被覆で有限部分被覆をもたないものが存在することを示す.
 
 $ X $が可算コンパクトでなければ,
@@ -36,6 +38,11 @@ $ \mathscr{V} $は点有限な開被覆となるが部分被覆をもたない.
 `.repeat(1);
 
 export default function Home() {
+    const router = useRouter();
+    const { query } = router;
+    const sampleKind = query.sample;
+    const initialText = sampleKind === 'topology' ? sampleTextTopology : '';
+
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
     const [text, setText] = useState('');
@@ -63,32 +70,28 @@ export default function Home() {
     }, [parseResult]);
 
     return (
-        <Container large>
-            <Meta />
-
-            <h1>TeX Web Preview</h1>
-            <div className={styles.two_column}>
-                <div className={styles.left_side}>
-                    <div style={{ height: '100%' }}>
-                        <textarea
-                            ref={textareaRef}
-                            defaultValue={initialText}
-                            style={{ width: '100%', height: '90%' }}
-                        />
-                        <div>count: {charCount}</div>
+        <>
+            <Meta pageDesc={'simple web app to preview TeX content'} />
+            <Container large>
+                <h1>TeX Web Preview</h1>
+                <div className={styles.two_column}>
+                    <div className={styles.left_side}>
+                        <div style={{ height: '100%' }}>
+                            <DynamicHeightTextarea
+                                textareaRef={textareaRef}
+                                defaultValue={initialText}
+                            />
+                            <div>count: {charCount}</div>
+                        </div>
+                    </div>
+                    <div className={styles.right_side}>
+                        <div>
+                            <ParseResultComponent parseResult={parseResult} />
+                        </div>
                     </div>
                 </div>
-                <div className={styles.right_side}>
-                    <div
-                        style={{
-                            maxHeight: '80vh',
-                            overflow: 'auto',
-                        }}>
-                        <ParseResultComponent parseResult={parseResult} />
-                    </div>
-                </div>
-            </div>
-        </Container>
+            </Container>
+        </>
     );
 }
 
@@ -117,6 +120,6 @@ const ParseResultComponent: FC<{
             );
         }
     } else {
-        return <div>Parsing ...</div>;
+        return <div>Loading...</div>;
     }
 };
