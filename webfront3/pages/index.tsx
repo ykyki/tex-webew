@@ -4,7 +4,7 @@ import Container from '@components/container';
 import Meta from '@components/meta';
 import styles from '@styles/two-column.module.css';
 import { ParseResultMap } from '@lib/parse-result-map';
-import { ParseResultMapComponent } from '@components/tex';
+import { ParseResultMapComponent } from '@components/parse-result-map';
 import DynamicHeightTextarea from '@components/dynamic-height-textarea';
 import { useRouter } from 'next/router';
 
