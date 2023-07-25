@@ -10,7 +10,9 @@ const DynamicHeightTextarea: FC<{
             textareaRef.current.style.height = 'auto'; // Set height to auto to reset it first.
             textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
         }
-    }, [textareaRef]);
+        // TODO CSS初期化にはdefaultValueの変更を検知する必要がある. そのためにdefaultValueを暫定的に入れている
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [textareaRef, defaultValue]);
 
     useEffect(() => {
         setHeight();

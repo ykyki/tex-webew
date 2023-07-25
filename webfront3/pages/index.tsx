@@ -6,8 +6,9 @@ import styles from '@styles/two-column.module.css';
 import { ParseResultMap } from '@lib/parse-result-map';
 import { ParseResultMapComponent } from '@components/tex';
 import DynamicHeightTextarea from '@components/dynamic-height-textarea';
+import { useRouter } from 'next/router';
 
-const initialText =
+const sampleTextTopology =
     String.raw`\topT{3}位相空間$X$が可算コンパクトでないと仮定して、ある点有限な開被覆で有限部分被覆をもたないものが存在することを示す.
 
 $ X $が可算コンパクトでなければ,
@@ -37,6 +38,11 @@ $ \mathscr{V} $は点有限な開被覆となるが部分被覆をもたない.
 `.repeat(1);
 
 export default function Home() {
+    const router = useRouter();
+    const { query } = router;
+    const sampleKind = query.sample;
+    const initialText = sampleKind === 'topology' ? sampleTextTopology : '';
+
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
     const [text, setText] = useState('');
