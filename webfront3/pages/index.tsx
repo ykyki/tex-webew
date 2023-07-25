@@ -70,27 +70,28 @@ export default function Home() {
     }, [parseResult]);
 
     return (
-        <Container large>
-            <Meta />
-
-            <h1>TeX Web Preview</h1>
-            <div className={styles.two_column}>
-                <div className={styles.left_side}>
-                    <div style={{ height: '100%' }}>
-                        <DynamicHeightTextarea
-                            textareaRef={textareaRef}
-                            defaultValue={initialText}
-                        />
-                        <div>count: {charCount}</div>
+        <>
+            <Meta pageDesc={'simple web app to preview TeX content'} />
+            <Container large>
+                <h1>TeX Web Preview</h1>
+                <div className={styles.two_column}>
+                    <div className={styles.left_side}>
+                        <div style={{ height: '100%' }}>
+                            <DynamicHeightTextarea
+                                textareaRef={textareaRef}
+                                defaultValue={initialText}
+                            />
+                            <div>count: {charCount}</div>
+                        </div>
+                    </div>
+                    <div className={styles.right_side}>
+                        <div>
+                            <ParseResultComponent parseResult={parseResult} />
+                        </div>
                     </div>
                 </div>
-                <div className={styles.right_side}>
-                    <div>
-                        <ParseResultComponent parseResult={parseResult} />
-                    </div>
-                </div>
-            </div>
-        </Container>
+            </Container>
+        </>
     );
 }
 
