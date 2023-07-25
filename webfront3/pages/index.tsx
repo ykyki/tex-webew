@@ -119,6 +119,6 @@ const ParseResultComponent: FC<{
             );
         }
     } else {
-        return <div>Parsing ...</div>;
+        return <div>Loading...</div>;
     }
 };
