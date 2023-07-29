@@ -1,9 +1,12 @@
-import { RefObject, ChangeEvent, FC, useEffect, useCallback } from 'react';
+import { ChangeEvent, FC, useEffect, useCallback, useRef } from 'react';
 
 const DynamicHeightTextarea: FC<{
-    textareaRef: RefObject<HTMLTextAreaElement>;
-    defaultValue: string;
-}> = ({ textareaRef, defaultValue = '' }) => {
+    defaultValue?: string;
+    // eslint-disable-next-line no-unused-vars
+    onChange?: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+}> = ({ defaultValue = '', onChange = () => {} }) => {
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
+
     const setHeight = useCallback(() => {
         if (textareaRef.current) {
             // Adjust the height of the textarea to match its content.
@@ -14,11 +17,13 @@ const DynamicHeightTextarea: FC<{
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [textareaRef, defaultValue]);
 
+    // initialize
     useEffect(() => {
         setHeight();
     }, [setHeight]);
 
-    const handleTextareaChange = (_event: ChangeEvent<HTMLTextAreaElement>) => {
+    const handleTextareaChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+        onChange(event);
         setHeight();
     };
 
@@ -28,7 +33,7 @@ const DynamicHeightTextarea: FC<{
             className="dynamic-textarea"
             onChange={handleTextareaChange}
             defaultValue={defaultValue}
-            placeholder="Type your text here..."
+            placeholder="Type your text here"
             style={{ width: '100%', resize: 'none', overflowY: 'hidden' }}
             wrap="off"
         />

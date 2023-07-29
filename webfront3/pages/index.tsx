@@ -38,18 +38,28 @@ $ \mathscr{V} $は点有限な開被覆となるが部分被覆をもたない.
 `.repeat(1);
 
 export default function Home() {
-    const router = useRouter();
-    const { query } = router;
-    const sampleKind = query.sample;
-    const initialText = sampleKind === 'topology' ? sampleTextTopology : '';
+    const textRef = useRef<string>('');
+    const [initialText, setInitialText] = useState('');
 
-    const textareaRef = useRef<HTMLTextAreaElement>(null);
+    const router = useRouter();
+    useEffect(() => {
+        if (!router.isReady) {
+            return;
+        }
+
+        const { query } = router;
+        const sampleKind = query.sample;
+        const text = sampleKind === 'topology' ? sampleTextTopology : '';
+
+        setInitialText(text);
+        textRef.current = text;
+    }, [router]);
 
     const [text, setText] = useState('');
     const TEXT_UPDATE_INTERVAL_MS = 100;
     useEffect(() => {
         const intervalId = setInterval(() => {
-            setText(textareaRef.current?.value ?? '');
+            setText(textRef.current);
         }, TEXT_UPDATE_INTERVAL_MS);
 
         return () => clearInterval(intervalId);
@@ -78,8 +88,10 @@ export default function Home() {
                     <div className={styles.left_side}>
                         <div style={{ height: '100%' }}>
                             <DynamicHeightTextarea
-                                textareaRef={textareaRef}
                                 defaultValue={initialText}
+                                onChange={(event) => {
+                                    textRef.current = event.target.value;
+                                }}
                             />
                             <div>count: {charCount}</div>
                         </div>
