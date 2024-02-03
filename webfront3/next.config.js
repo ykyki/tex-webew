@@ -2,8 +2,8 @@
 const nextConfig = {
     reactStrictMode: true,
     swcMinify: true,
-    basePath: '/tex-web-preview',
-    assetPrefix: '/tex-web-preview',
+    basePath: '',
+    assetPrefix: '',
     webpack: (config, { isServer }) => {
         config.experiments = {
             asyncWebAssembly: true,
