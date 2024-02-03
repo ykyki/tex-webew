@@ -2,8 +2,8 @@
 const nextConfig = {
     reactStrictMode: true,
     swcMinify: true,
-    basePath: '/',
-    assetPrefix: '/',
+    basePath: '',
+    assetPrefix: '',
     webpack: (config, { isServer }) => {
         config.experiments = {
             asyncWebAssembly: true,
